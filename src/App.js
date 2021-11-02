@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import AddSubtract from "./containers/AddSubtract";
+import DivideMultiply from "./containers/DivideMultiply";
+import { connect } from "react-redux";
+import {
+  addSubVal,
+  addSubCurrentVal,
+  divideMulVal,
+  divideMulCurrentVal,
+} from "./actions";
 
-function App() {
+const mapStateToProps = (state) => ({
+  addSubVal: state.addSubVal,
+  addSubCurrentVal: state.addSubCurrentVal,
+  divideMulVal: state.divideMulVal,
+  divideMulCurrentVal: state.divideMulCurrentVal,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  // dispatching plain actions
+  onAddSubVal: (num) => dispatch(addSubVal(num)),
+  onAddSubCurrentVal: (num) => dispatch(addSubCurrentVal(num)),
+  onDivideMulVal: (num) => dispatch(divideMulVal(num)),
+  onDivideMulCurrentVal: (num) => dispatch(divideMulCurrentVal(num)),
+});
+
+function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Funny Calculator</h1>
+      <p>A Calculator I built using redux</p>
+      <AddSubtract {...props} />
+      <DivideMultiply {...props} />
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
